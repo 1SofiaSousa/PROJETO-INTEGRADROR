@@ -1,0 +1,46 @@
+# .gitignore para projetos web (inclui dist e node_modules)
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build / distribuição
+dist/
+build/
+out/
+*.tgz
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# Caches / ferramentas
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.sass-cache/
+coverage/
+nyc_output/
+
+# Sistema / IDEs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Temporários
+tmp/
+temp/
+*.tmp
+*.swp
+*.bak

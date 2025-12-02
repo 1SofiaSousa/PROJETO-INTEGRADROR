@@ -31,6 +31,9 @@ app.get('/teste', async (req: Request, res: Response) => { // Rota de teste da c
   }
 });
 
+app.get('/', (req: Request, res: Response) => {
+    res.sendFile(path.join(frontEndPath, 'HTML', 'index.html'));
+});
 
 
 //ROTAS PARA HTMLS (GET) Posteriormente, é possível migrar para express.static, mas será necessário ajustar os paths dos arquivos CSS e JS no FrontEnd e a organização das pastas.
@@ -39,18 +42,28 @@ app.get('/dashboard', (req: Request, res: Response) => {
     res.sendFile(path.join(frontEndPath, 'HTML', 'dashboard.html'));
 });
 
-app.get('/cadastrar-instituicao', (req: Request, res: Response) => {
-    res.sendFile(path.join(frontEndPath, 'HTML', 'cadastro-instituicao.html'));
+app.get('/dashboard/alunos', (req: Request, res: Response) => {
+    res.sendFile(path.join(frontEndPath, 'HTML', 'alunos.html'));
 });
 
-//rota principal para obter todos os alunos
-app.get('/alunos', (req: Request, res: Response) => {
-    res.sendFile(path.join(frontEndPath, 'HTML', 'alunos.html'));
+app.get('/dashboard/instituicoes', (req: Request, res: Response) => {
+    res.sendFile(path.join(frontEndPath, 'HTML', 'instituicoes.html'));
+});
+
+app.get('/dashboard/turmas', (req: Request, res: Response) => {
+    res.sendFile(path.join(frontEndPath, 'HTML', 'turmas.html'));
+});
+
+
+app.get('/cadastrar-instituicao', (req: Request, res: Response) => {
+    res.sendFile(path.join(frontEndPath, 'HTML', 'cadastro-instituicao.html'));
 });
 
 app.get('/cadastro', (req: Request, res: Response) => {
     res.sendFile(path.join(frontEndPath, 'HTML', 'cadastro.html'));
 });
+
+
 
 //ROTAS POST, GET, PUT, DELETE
 
@@ -85,6 +98,7 @@ app.post('/adicionarAlunos', async (req: Request, res: Response) => {
     res.status(500).json({ erro: (erro as Error).message });
   }
 });
+
 //rota obter todas os alunos
 import { getAllAluno } from "./database/alunos";
  
