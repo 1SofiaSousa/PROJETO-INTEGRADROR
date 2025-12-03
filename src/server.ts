@@ -15,6 +15,7 @@ app.use(cors());
 
 // Caminho absoluto para a pasta FrontEnd
 const frontEndPath = path.join(__dirname, '../FrontEnd');
+
 app.use(express.static(frontEndPath));
 
 
@@ -53,7 +54,6 @@ app.get('/dashboard/instituicoes', (req: Request, res: Response) => {
 app.get('/dashboard/turmas', (req: Request, res: Response) => {
     res.sendFile(path.join(frontEndPath, 'HTML', 'turmas.html'));
 });
-
 
 app.get('/cadastrar-instituicao', (req: Request, res: Response) => {
     res.sendFile(path.join(frontEndPath, 'HTML', 'cadastro-instituicao.html'));

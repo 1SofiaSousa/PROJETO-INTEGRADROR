@@ -39,10 +39,9 @@ export async function getAllCursos(): Promise<Curso[]> {
 
 // Obtendo o curso pelo seu Codigo
 
-// uma promise e um objeto em js que vai representar algo que ainda vai acontecer no futuro
+// uma promise e um objeto que vai representar algo que ainda vai acontecer no futuro
 export async function getCursoById(Codigo: number): Promise<Curso | null> {
 
-  
   // await - vai esperar a conexao ficar disponibilizada
   // conn -  canal direto com o ban
 

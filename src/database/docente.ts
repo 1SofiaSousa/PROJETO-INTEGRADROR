@@ -21,7 +21,7 @@ export interface Docente {
 // Coon - o "canal direto" entre o codigo e o banco                 
 // Pool Connection - modelo tecnico de uma conexao que vem do pool(gereciador de conexoes), que garante que os metodos
 // do coon ocorram como (query, release e begin trasaction)
-// uma promise e um objeto em js que vai representar algo que ainda vai acontecer no futuro
+// uma promise e um objeto que vai representar algo que ainda vai acontecer no futuro
 
 export async function getAllDocente(): Promise<Docente[]> {
 

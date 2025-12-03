@@ -13,7 +13,6 @@ export interface Aluno {
   nome: string;
 }
 
-
 // Comecando funcoes 
 // Essa funcao obtem todos os estudantes da tabela de alunos do mySql
 // As funcoes sao assincronas por conta do banco de dados
@@ -21,7 +20,7 @@ export interface Aluno {
 // Funcoes do Aluno
 // Coon - o "canal direto" entre o codigo e o banco                 
 // Pool Connection - modelo tecnico de uma conexao que vem do pool(gereciador de conexoes), que garante que os metodos
-// do coon ocorram como (query, release e begin trasaction)
+// do conn ocorram como (query, release e begin trasaction)
 // uma promise e um objeto em js que vai representar algo que ainda vai acontecer no futuro
 
 export async function getAllAluno(): Promise<Aluno[]> {
