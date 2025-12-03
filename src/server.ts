@@ -278,19 +278,22 @@ import { addDocente } from './database/docente';
 app.post('/adicionarDocente', async (req: Request, res: Response) => {
 
   // que requisitamos os parametros do corpo da requisicao
-  const { ID, Nome, Email, Telefone_Celular, Senha } = req.body;
+  // os nomes aqui devem bater com o JSON enviado pelo front-end (cadastro.js)
+  const { nome, email, telefone, senha } = req.body;
+  
   try {
 
     // chamando a funcao de add o docente, o await por que espera  o banco terminar de responder
     // que recebe o novo id do docente criado pelo banco
     
-    const novoId = await addDocente(ID, Nome, Email, Telefone_Celular, Senha);
+    const novoId = await addDocente(nome, email, telefone, senha);
 
     // quando o docente for cadastrado com sucesso
-    res.status(201).json({ id: novoId, ID, Nome,Email, Telefone_Celular, Senha });
+    res.status(201).json({ id: novoId, nome, email, telefone, senha });
   } catch (erro) {
 
     // quando der erro na busca, retorna esse erro e mensagem
+    console.error("Erro ao cadastrar docente:", erro);
     res.status(500).json({ erro: (erro as Error).message });
   }
 });

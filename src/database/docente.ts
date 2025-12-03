@@ -33,7 +33,7 @@ export async function getAllDocente(): Promise<Docente[]> {
         // query - comando que enviamos ao banco para pedir alguma coisa para ele
 
     const [rows] = await conn.query<RowDataPacket[]>(
-      `SELECT ID AS ID_Docente, Nome AS Nome_Docente, Email AS Email, Telefone_Celular AS Telefone_Celular, Senha AS Senha FROM Aluno`
+      `SELECT ID AS ID_Docente, Nome AS Nome_Docente, Email AS Email, Telefone_Celular AS Telefone_Celular, Senha AS Senha FROM Docente`
     );
 
     // usado para evitar erro de tipagem (usar um tipo de dado como se fosse outro tipo)
@@ -63,7 +63,7 @@ export async function getDocenteById(ID: number): Promise<Docente | null> {
 
     const [rows] = await conn.query<RowDataPacket[]>(
              `SELECT ID AS ID_Docente, Nome AS Nome_Docente, Email AS Email, Telefone_Celular AS Telefone_Celular,
-              Senha AS Senha FROM Aluno
+              Senha AS Senha FROM Docente
               WHERE ID = ?`, [ID]
     );
 
@@ -77,7 +77,7 @@ export async function getDocenteById(ID: number): Promise<Docente | null> {
 }
 
 // funcao de adicionar docente 
-export async function addDocente(ID: number, Nome:string, Email:string, Telefone_Celular:number, Senha:string): Promise<number> {
+export async function addDocente(Nome:string, Email:string, Telefone_Celular:string, Senha:string): Promise<number> {
   const conn: PoolConnection = await pool.getConnection();
   try {
 
@@ -85,8 +85,8 @@ export async function addDocente(ID: number, Nome:string, Email:string, Telefone
      // ResultSetHeader - retorno de operacoes de insert, update e delete
 
     const [result] = await conn.execute<ResultSetHeader>(
-      `INSERT INTO Docente (ID_Docente, Nome_Docente, Email, Telefone_Celular, Senha) VALUES (?, ?, ?, ?, ?)`,
-      [ID, Nome, Email, Telefone_Celular, Senha]
+      `INSERT INTO Docente (Nome_Docente, Email, Telefone_Celular, Senha) VALUES (?, ?, ?, ?)`,
+      [Nome, Email, Telefone_Celular, Senha]
     );
 
     // insertId - retorna o ID da docente cadastrada
