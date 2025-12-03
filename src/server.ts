@@ -63,6 +63,27 @@ app.get('/cadastro', (req: Request, res: Response) => {
     res.sendFile(path.join(frontEndPath, 'HTML', 'cadastro.html'));
 });
 
+app.get('/login', (req: Request, res: Response) => {
+    res.sendFile(path.join(frontEndPath, 'HTML', 'login.html'));
+});
+
+app.get('/dashboard/turmas', (req: Request, res: Response) => {
+    res.sendFile(path.join(frontEndPath, 'HTML', 'turmas.html'));
+});
+
+app.get('/Docente', (req: Request, res: Response) => {
+    res.sendFile(path.join(frontEndPath, 'HTML', 'cadastro.html'));
+});
+
+app.get('/dashboard/cursos', (req: Request, res: Response) => {
+    res.sendFile(path.join(frontEndPath, 'HTML', 'curso.html'));
+});
+
+app.get('/dashboard/diciplinas', (req: Request, res: Response) => {
+    res.sendFile(path.join(frontEndPath, 'HTML', 'diciplinas.html'));
+});
+
+app
 
 
 //ROTAS POST, GET, PUT, DELETE
@@ -103,7 +124,7 @@ app.post('/adicionarAlunos', async (req: Request, res: Response) => {
 import { getAllAluno } from "./database/alunos";
  
   // comando de select do banco ja que pega todos os alunos
-app.get("/alunos", async (req: Request, res: Response) => {
+app.get("/listar-alunos", async (req: Request, res: Response) => {
 
   try {
 
@@ -281,16 +302,29 @@ app.post('/adicionarDocente', async (req: Request, res: Response) => {
 
  import {getAllCursos} from './database/curso';
 
+  // comando de select do banco ja que pega todos os cursos
+  app.get("/listar-cursos", async (req: Request, res: Response) => {
+    try {
+
+      // getAllCursos - funcao que busca todos os cursos no banco (Select)
+      const cursos = await getAllCursos();
+
+      // aqui retorna os cursos em formato json
+      res.json(cursos);
+    } catch (erro) {
+
+      // em caso de erro na busca, retorna esse erro e mensagem
+      console.error("Erro ao buscar cursos:", erro);
+      res.status(500).json({ erro: "Erro interno" });
+    }
+  });
+
 
  // Rota principal para obter todos os cursos
- // envia o arquivo cadastro.html
  // get - para obter dados
  // app - criada com o express
  // async - assincrona por que vai acessar o banco de dados e usar o await
  
-  app.get('/Cursos', (req: Request, res: Response) => {
-  res.sendFile(path.join(frontEndPath, 'HTML', 'cadastro.html'));
-});
    
    // Rota de adicionar curso
 
@@ -302,22 +336,23 @@ app.post('/adicionarDocente', async (req: Request, res: Response) => {
    app.post ('/adicionarCurso', async (req: Request, res: Response) => {
 
     // que requisitamos os parametros do corpo da requisicao
-    const { Instituicao, Nome, Periodo, ID} = req.body;
+    const { Instituicao, Nome, Periodo, Codigo } = req.body;
 
     try{
 
       // chamando a funcao de add o curso, o await por que espera  o banco terminar de responder
       // que recebe o novo id do curso criado pelo banco
 
-      const novoId = await addCurso(Instituicao, Nome,Periodo,ID);
+        const novoId = await addCurso(Instituicao, Nome, Periodo, Codigo);
+
 
       // quando o curso for cadastrado com sucesso
 
-      res.status (201).json ({id: novoId, Instituicao, Nome, Periodo, ID});
+      res.status(201).json({ id: novoId, Instituicao, Nome, Periodo, Codigo });
     } catch (erro) {
 
       // em caso de erro na busca, retorna esse erro e mensagem
-      res.status (500).json ({ erro: (erro as Error).message});
+      res.status(500).json({ erro: (erro as Error).message });
     }
    });
    

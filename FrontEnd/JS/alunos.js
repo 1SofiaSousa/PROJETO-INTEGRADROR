@@ -3,7 +3,7 @@ const form = document.querySelector('form');
 const tbody = document.querySelector('table tbody');
 
 // Função para criar uma nova linha na tabela
-function adicionarAluno( nome, ra) {
+function adicionarAluno(nome, ra) {
   const tr = document.createElement('tr');
 
   tr.innerHTML = `
@@ -30,6 +30,30 @@ function adicionarAluno( nome, ra) {
   });
 
   tbody.appendChild(tr); // Adiciona a linha na tabela
+}
+
+// Busca todos os alunos no servidor e atualiza a tabela
+function carregarAlunos() {
+  fetch('/listar-alunos')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Resposta não OK ao listar alunos');
+      }
+      return response.json();
+    })
+    .then(alunos => {
+      // Limpa a tabela antes de preencher de novo
+      tbody.innerHTML = '';
+
+      alunos.forEach(aluno => {
+        // Considerando que o backend retorna { ra, nome }
+        adicionarAluno(aluno.nome, aluno.ra);
+      });
+    })
+    .catch(error => {
+      console.error('Erro ao listar alunos:', error);
+      window.alert('Erro ao listar alunos.');
+    });
 }
 
 function cadastrarAlunoServidor(ra, nome) {
@@ -60,6 +84,7 @@ function cadastrarAlunoServidor(ra, nome) {
     .then(data => {
       window.alert('Aluno cadastrado com sucesso!');
       console.log('Resposta do servidor:', data);
+      carregarAlunos(); // Após cadastrar, atualiza a tabela com todos os alunos
     })
     .catch(error => {
       window.alert('Erro ao cadastrar aluno.');
@@ -74,13 +99,13 @@ form.addEventListener('submit', (e) => {
   // Pega os valores do formulário
   const nome = document.getElementById('nome').value;
   const ra = document.getElementById('ra').value;
-  const raConvertido = parseInt(ra, 10);// Converte matrícula para número
-
-  // Adiciona aluno na tabela
-  adicionarAluno( nome, ra);
+  const raConvertido = parseInt(ra, 10); // Converte matrícula para número
 
   // Envia para o servidor
   cadastrarAlunoServidor(raConvertido, nome);
+
+  // Recarrega a lista de alunos
+  carregarAlunos();
 
   // Limpa o formulário
   form.reset();

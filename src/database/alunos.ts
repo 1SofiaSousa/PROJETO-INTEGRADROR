@@ -32,7 +32,7 @@ export async function getAllAluno(): Promise<Aluno[]> {
 
   try {
     const [rows] = await conn.query<RowDataPacket[]>(
-      `SELECT ID AS id, RA AS ra, Nome AS nome FROM Aluno`
+      `SELECT ID AS id, RA AS ra, Nome_Aluno AS nome FROM Aluno`
     );
     return rows as unknown as Aluno[];
   } finally {
@@ -63,7 +63,7 @@ export async function getAlunoById(id: number): Promise<Aluno | null> {
     // RowDataPacket - diz para o TS que vai vir em formato de linhas do banco
 
     const [rows] = await conn.query<RowDataPacket[]>(
-      `SELECT ID AS id, RA AS ra, Nome AS nome
+      `SELECT ID AS id, RA AS ra, Nome_Aluno AS nome
        FROM Aluno
        WHERE ID = ?`, [id]
     );

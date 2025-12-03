@@ -24,7 +24,7 @@ async function carregarInstituicoes() {
       card.classList.add("instituicao-card");
 
       card.innerHTML = `
-        <h4>${inst.nome}</h4>
+        <h4>${inst.nome} - ID: ${inst.id}</h4>
         <p>${inst.endereco}</p>
         <a href="dashboard" class="btn-acessar">Acessar</a>
       `;
